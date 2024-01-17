@@ -10,7 +10,7 @@ def cadastro(request):
 
     if (request.method == "GET"):
         return render(request, 'cadastro.html')
-    elif (request.method == "POST"): 
+    elif (request.method == "POST"):
 
         form_username = request.POST.get('username')
         form_password = request.POST.get('password')
@@ -19,9 +19,9 @@ def cadastro(request):
         if (not form_password == confirm_password):
             messages.add_message(request, constants.ERROR, 'Senhas não coincidem!')
             return redirect ('/usuarios/cadastro')
-        
+
         user = User.objects.filter(username = form_username)
-        
+
         if (user.exists()):
           messages.add_message(request, constants.ERROR, 'Usuário já existe!')
           return redirect('/usuarios/cadastro')
@@ -32,16 +32,16 @@ def cadastro(request):
                 password=form_password
             )
             return  redirect('/usuarios/logar')
-        
+
         except:
           messages.add_message(request, constants.ERROR, 'erro interno do servidor')
           return redirect('/usuarios/cadastro')
-        
+
 
 def logar(request):
     if (request.method == "GET"):
       return render(request, 'login.html')
-   
+
     elif (request.method == "POST"):
        form_username = request.POST.get('username')
        form_password = request.POST.get('password')
@@ -52,7 +52,7 @@ def logar(request):
           auth.login(request, user)
           messages.add_message(request, constants.SUCCESS, 'Logado com sucesso!')
           return redirect('/flashcards/new_flashcards/')
-       
+
        else:
           messages.add_message(request, constants.ERROR, 'Username ou passoword inválido!')
           return redirect('/usuarios/logar/')
