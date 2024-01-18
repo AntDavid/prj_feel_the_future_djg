@@ -65,7 +65,7 @@
 
             </div>
             <div class="col-md">
-                <form action="" method="GET">
+                <form action="{% url 'novo_flashcard' %}" method="GET"> {% csrf_token %}
                     <div class="row">
                         <div class="col-md">
                             <label for="">Categoria</label>
@@ -96,7 +96,7 @@
                 <br>
                 <br>
                 {% for item in flashcards %}
-                    <div class="box-new-flashcard">
+                    <div class="box-new-flashcard" onclick="flip_card({{item.id}})">
                         <div class="flashcard ">
 
                             <div class="flashcard-categoria">
@@ -111,7 +111,7 @@
                             </div>
 
                         </div>
-                        <div class="resposta-flashcard">
+                        <div class="resposta-flashcard" id="{{ item.id }}">
                             {{ item.resp }}
                         </div>
                     </div>
@@ -125,4 +125,10 @@
         </div>
     </div>
 
+    <script>
+        function flip_card(id){
+            console.log(id)
+    }
+
+    </script>
 {% endblock 'conteudo' %}
