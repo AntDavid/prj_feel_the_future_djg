@@ -51,7 +51,7 @@ def logar(request):
        if user:
           auth.login(request, user)
           messages.add_message(request, constants.SUCCESS, 'Logado com sucesso!')
-          return redirect('/flashcards/new_flashcards/')
+          return redirect('/flashcard/novo_flashcard/')
 
        else:
           messages.add_message(request, constants.ERROR, 'Username ou passoword inválido!')

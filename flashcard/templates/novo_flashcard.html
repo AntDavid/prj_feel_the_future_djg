@@ -103,7 +103,7 @@
                                 {{ item.category }}
                             </div>
 
-                            <a href=""><i class='icone-exit bx bx-x-circle'></i></a>
+                            <a href="{% url 'deletar_flashcard' item.id %}"><i class='icone-exit bx bx-x-circle'></i></a>
                             <br>
                             <br>
                             <div class="flashcard-box-item">
@@ -127,8 +127,15 @@
 
     <script>
         function flip_card(id){
-            console.log(id)
-        }
+            card = document.getElementById(id)
+
+            if (card.style.display == 'none' || card.style.display == ''){
+                card.style.display = "block"
+            }else{
+                card.style.display = 'none'
+            }
+
+}
 
     </script>
 {% endblock 'conteudo' %}
