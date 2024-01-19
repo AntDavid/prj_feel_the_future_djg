@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from . models import Categoria, Flashcard
+from . models import Categoria, Flashcard, Challenge, FlashcardChallenge
 from django.contrib.messages import constants
 from django.contrib import messages
 from django.http import HttpResponse
@@ -56,8 +56,35 @@ def deletar_flashcard(request, id):
 
 
 def iniciar_desafio(request):
-    if request.method == "GET":
+    if (request.method == "GET"):
         categorias = Categoria.objects.all()
         dificuldades = Flashcard.DIFICULDADE_CHOICES
         return render(request, 'iniciar_desafio.html/', {'categorias': categorias,
                                                         'dificuldades': dificuldades})
+
+    elif (request.method == "POST"):
+        form_tittle = request.POST.get('titulo')
+        form_category = request.POST.getlist('categoria')
+        form_difficulty = request.POST.get('dificuldade')
+        form_quantity_questions = request.POST.get('qtd_perguntas')
+
+
+    challenge = Challenge(
+        user=request.user,
+        tittle = form_tittle,
+        difficulty = form_difficulty,
+        quantity_questions = form_quantity_questions
+    )
+
+    challenge.save()
+
+    for item in form_category:
+        challenge.category.add(item)
+
+    flashcard = (Flashcard.objects.filter(user=request.user)
+                .filter(difficulty=form_difficulty)
+                .filter(category_id__in=form_category)
+                .order_by('?')
+                )
+
+    return HttpResponse('test')
