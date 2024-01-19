@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from . models import Categoria, Flashcard
 from django.contrib.messages import constants
-from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import HttpResponse
 
@@ -47,10 +46,18 @@ def novo_flashcard(request):
 
 def deletar_flashcard(request, id):
     flashcard_to_delete = Flashcard.objects.get(id=id)
-    if (User == request.user):
+
+    if (flashcard_to_delete.user == request.user):
         flashcard_to_delete.delete()
         messages.add_message(request, constants.SUCCESS, 'Deletado com sucesso!')
     else:
         messages.add_message(request, constants.ERROR, 'Erro ao deletar')
     return redirect('/flashcard/novo_flashcard/')
 
+
+def iniciar_desafio(request):
+    if request.method == "GET":
+        categorias = Categoria.objects.all()
+        dificuldades = Flashcard.DIFICULDADE_CHOICES
+        return render(request, 'iniciar_desafio.html/', {'categorias': categorias,
+                                                        'dificuldades': dificuldades})
