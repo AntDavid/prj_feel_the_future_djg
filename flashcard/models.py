@@ -20,6 +20,18 @@ class Flashcard(models.Model):
     def __str__(self):
         return self.question
 
+    @property
+    def css_difficulty(self):
+        if (self.difficulty == "F"):
+            return "flashcard-facil"
+
+        elif (self.difficulty == "M"):
+            return "flashcard-medio"
+
+        elif (self.difficulty == "D"):
+            return "flashcard-dificil"
+
+
 class FlashcardChallenge(models.Model):
     flashcard = models.ForeignKey(Flashcard, on_delete=models.DO_NOTHING)
     answered = models.BooleanField(default=False)
