@@ -73,10 +73,11 @@
                 <p class="fonte-p">Erros: {{not_nailed_it}}</p>
                 <p class="fonte-p">Faltantes: {{missing}}</p>
                 <br>
-                <a class="btn-cadastro btn-desafio" href="{% url relatorio %}">Relatório detalhado</a>
+                <a class="btn-cadastro btn-desafio" href="{% url 'relatorio' desafio.id%}">Relatório detalhado</a>
             </div>
         </div>
 
     </div>
+
     <script src="{% static 'flashcard/js/flashcard.js' %}"></script>
 {% endblock 'conteudo' %}
