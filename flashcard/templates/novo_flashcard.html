@@ -20,7 +20,7 @@
 
                 <div class="box-form">
                     <form action="{% url 'novo_flashcard' %}" method="POST"> {% csrf_token %}
-                        <h3>Novo flashcard {{categorias.1}}</h3>
+                        <h3>Novo flashcard </h3>
                         {% if messages %}
                             <br>
                             {% for message in messages %}
